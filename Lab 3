@@ -1,4 +1,7 @@
-#define PWM 9;
+#define PWM 9
+#define AI1 2
+
+
 int echo = 6;
 int trig = 5;
 int tilt = 10;
