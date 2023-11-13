@@ -1,4 +1,4 @@
-int dcmotor = 9;
+#define PWM 9;
 int echo = 6;
 int trig = 5;
 int tilt = 10;
