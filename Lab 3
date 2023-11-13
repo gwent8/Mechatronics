@@ -2,6 +2,7 @@
 #define AI1 2
 #define AI2 4
 
+
 int echo = 6;
 int trig = 5;
 int tilt = 10;
@@ -13,10 +14,11 @@ float duration_us, distance_cm;
 void setup() {
   pinMode(trig, OUTPUT);
   pinMode(echo, INPUT);
-  pinMode(dcmotor, OUTPUT);
+  pinMode(PWM, OUTPUT);
   pinMode(tilt, INPUT);
   pinMode(servo, OUTPUT);
- // Serial.begin(9600);
+  pinMode(AI1, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
