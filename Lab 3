@@ -33,6 +33,7 @@ void loop() {
 
   if ((tilt_read == LOW) && (distance_cm <12 )) {
  digitalWrite(dcmotor, HIGH);
+    delay(50);
  digitalWrite(servo, LOW);
   }
   else if ((tilt_read == HIGH) && (distance_cm >12)) {
