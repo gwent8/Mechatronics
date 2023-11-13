@@ -32,27 +32,23 @@ void loop() {
   //Serial.println(tilt_val);
 
   if ((tilt_read == LOW) && (distance_cm <12 )) {
-    digitalWrite(dcmotor, HIGH);
-    delay(50);
- digitalWrite(yelLed, LOW);
- digitalWrite(bluled, LOW);
+ digitalWrite(dcmotor, HIGH);
+ digitalWrite(servo, LOW);
   }
   else if ((tilt_read == HIGH) && (distance_cm >12)) {
-    digitalWrite(bluled, HIGH);
+    digitalWrite(dcmotor, HIGH);
     delay(50);
-    digitalWrite(greenLed, LOW);
-    digitalWrite(yelLed, LOW);
+    digitalWrite(servo, HIGH);
+    delay(50);
   }
     else if ((tilt_read == HIGH) || (distance_read == HIGH)) {
-    digitalWrite(yelLed, HIGH);
+    digitalWrite(servo, HIGH);
     delay(50);
-    digitalWrite(bluled, LOW);
-    digitalWrite(greenLed, LOW);
+    digitalWrite(dcmotor, LOW);
   }
   else{
-    digitalWrite(yelLed, LOW);
-    digitalWrite(greenLed, LOW);
-    digitalWrite(bluled, LOW);
+    digitalWrite(dcmotor, LOW);
+    digitalWrite(servo, LOW);
     delay(500);
   }
  //analogWrite(bluled,tilt_val);
