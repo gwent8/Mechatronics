@@ -1,6 +1,6 @@
 #define PWM 9
 #define AI1 2
-
+#define AI2 4
 
 int echo = 6;
 int trig = 5;
