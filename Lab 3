@@ -18,6 +18,7 @@ void setup() {
   pinMode(tilt, INPUT);
   pinMode(servo, OUTPUT);
   pinMode(AI1, OUTPUT);
+  pinMode(AI2, OUTPUT);
   Serial.begin(9600);
 }
 
