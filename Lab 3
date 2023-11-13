@@ -1,1 +1,60 @@
+int dcmotor = 9;
+int echo = 6;
+int trig = 5;
+int tilt = 10;
+int val = 0;
+int servo = 11;
+int tilt_val = 0;
+float duration_us, distance_cm;
+
+void setup() {
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  pinMode(dcmotor, OUTPUT);
+  pinMode(tilt, INPUT);
+  pinMode(servo, OUTPUT);
+ // Serial.begin(9600);
+}
+
+void loop() {
+  int tilt_read = digitalRead(tilt);
+  int distance_read = digitalRead(echo);
+ digitalWrite(trig, LOW);
+ delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(100);
+  digitalWrite(trig, LOW);
+  duration_us = pulseIn(echo, HIGH);
+  distance_cm = 0.017 * duration_us;
+  val = map(duration_us, 0, 1023, 0, 255);
+  tilt_val = map(tilt_read, 0, 1023, 0, 255);
+ // Serial.println(distance_cm);
+  //Serial.println(tilt_val);
+
+  if ((tilt_read == LOW) && (distance_cm <12 )) {
+    digitalWrite(dcmotor, HIGH);
+    delay(50);
+ digitalWrite(yelLed, LOW);
+ digitalWrite(bluled, LOW);
+  }
+  else if ((tilt_read == HIGH) && (distance_cm >12)) {
+    digitalWrite(bluled, HIGH);
+    delay(50);
+    digitalWrite(greenLed, LOW);
+    digitalWrite(yelLed, LOW);
+  }
+    else if ((tilt_read == HIGH) || (distance_read == HIGH)) {
+    digitalWrite(yelLed, HIGH);
+    delay(50);
+    digitalWrite(bluled, LOW);
+    digitalWrite(greenLed, LOW);
+  }
+  else{
+    digitalWrite(yelLed, LOW);
+    digitalWrite(greenLed, LOW);
+    digitalWrite(bluled, LOW);
+    delay(500);
+  }
+ //analogWrite(bluled,tilt_val);
+}
 
