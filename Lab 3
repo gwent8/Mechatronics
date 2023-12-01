@@ -1,8 +1,15 @@
-#define PWM 9
-#define AI1 2
-#define AI2 4
-
-
+#include <SparkFun_TB6612.h>
+#include <Servo.h>
+Servo myservo;
+#define PWMA 9
+#define PWMB 3
+#define AIN1 2
+#define AIN2 4
+#define BIN1 12
+#define BIN2 13
+#define STBY 8
+const int offsetA = 1;
+const int offsetB = 1;
 int echo = 6;
 int trig = 5;
 int tilt = 10;
@@ -11,19 +18,21 @@ int servo = 11;
 int tilt_val = 0;
 float duration_us, distance_cm;
 
+Motor motor1 = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
+Motor motor2 = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
+
 void setup() {
   pinMode(trig, OUTPUT);
   pinMode(echo, INPUT);
-  pinMode(PWM, OUTPUT);
+  myservo.attach(11);
   pinMode(tilt, INPUT);
   pinMode(servo, OUTPUT);
-  pinMode(AI1, OUTPUT);
-  pinMode(AI2, OUTPUT);
+
   Serial.begin(9600);
 }
 
 void loop() {
-  int tilt_read = digitalRead(tilt);
+int tilt_read = digitalRead(tilt);
   int distance_read = digitalRead(echo);
  digitalWrite(trig, LOW);
  delayMicroseconds(2);
@@ -37,27 +46,23 @@ void loop() {
  // Serial.println(distance_cm);
   //Serial.println(tilt_val);
 
-  if ((tilt_read == LOW) && (distance_cm <12 )) {
- digitalWrite(dcmotor, HIGH);
-    delay(50);
- digitalWrite(servo, LOW);
+  if ((distance_cm <12) && (distance_cm > 3) ) {
+   motor1.drive(250,10000);
+    motor2.drive(250,10000);
   }
-  else if ((tilt_read == HIGH) && (distance_cm >12)) {
-    digitalWrite(dcmotor, HIGH);
-    delay(50);
-    digitalWrite(servo, HIGH);
-    delay(50);
+  else if (distance_cm > 12) {
+    motor1.drive(250,1000);
+    motor2.drive(200,1000);
   }
-    else if ((tilt_read == HIGH) || (distance_read == HIGH)) {
-    digitalWrite(servo, HIGH);
-    delay(50);
-    digitalWrite(dcmotor, LOW);
-  }
+    //else if ((tilt_read == HIGH) || (distance_read == HIGH)) {
+    //myservo.write(90);
+    //delay(50);
+   // motor1.brake();
+  //}
   else{
-    digitalWrite(dcmotor, LOW);
-    digitalWrite(servo, LOW);
-    delay(500);
+    motor1.drive(0,1000);
+    motor2.drive(0,1000);
   }
  //analogWrite(bluled,tilt_val);
-}
 
+}
