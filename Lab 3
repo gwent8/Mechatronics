@@ -51,8 +51,8 @@ int tilt_read = digitalRead(tilt);
     motor2.drive(200,10);
   }
   else if (distance_cm > 50) {
-    motor1.drive(250,10);
-    motor2.drive(200,10);
+    motor1.drive(200,10);
+    motor2.drive(250,10);
 }
   else{
     motor1.drive(200,10);
