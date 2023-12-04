@@ -52,11 +52,11 @@ int tilt_read = digitalRead(tilt);
   }
   else if (distance_cm > 50) {
     motor1.drive(200,10);
-    motor2.drive(250,10);
+    motor2.drive(215,10);
 }
   else{
-    motor1.drive(200,10);
-    motor2.drive(250,10);
+    motor1.drive(230,10);
+    motor2.drive(200,10);
   }
  //analogWrite(bluled,tilt_val);
 
