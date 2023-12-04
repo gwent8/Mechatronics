@@ -1,7 +1,7 @@
 #include <SparkFun_TB6612.h>
-#include <Servo.h>
-Servo myservo;
-#define PWMA 9
+//#include <Servo.h>
+//Servo myservo;
+#define PWMA 11
 #define PWMB 3
 #define AIN1 2
 #define AIN2 4
@@ -14,7 +14,7 @@ int echo = 6;
 int trig = 5;
 int tilt = 10;
 int val = 0;
-int servo = 11;
+//int servo = 11;
 int tilt_val = 0;
 float duration_us, distance_cm;
 
@@ -24,9 +24,9 @@ Motor motor2 = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
 void setup() {
   pinMode(trig, OUTPUT);
   pinMode(echo, INPUT);
-  myservo.attach(11);
-  pinMode(tilt, INPUT);
-  pinMode(servo, OUTPUT);
+//  myservo.attach(11);
+//  pinMode(tilt, INPUT);
+//  pinMode(servo, OUTPUT);
 
   Serial.begin(9600);
 }
@@ -43,14 +43,14 @@ int tilt_read = digitalRead(tilt);
   distance_cm = 0.017 * duration_us;
   val = map(duration_us, 0, 1023, 0, 255);
   tilt_val = map(tilt_read, 0, 1023, 0, 255);
- // Serial.println(distance_cm);
-  //Serial.println(tilt_val);
+  Serial.println(distance_cm);
+//  Serial.println(tilt_val);
 
-  if ((distance_cm <30) && (distance_cm > 20) ) {
+  if ((distance_cm <50) && (distance_cm > 30) ) {
    motor1.drive(200,10);
     motor2.drive(200,10);
   }
-  else if (distance_cm > 30) {
+  else if (distance_cm > 50) {
     motor1.drive(250,10);
     motor2.drive(200,10);
 }
